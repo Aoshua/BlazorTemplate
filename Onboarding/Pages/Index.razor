@@ -1,0 +1,30 @@
+﻿@page "/"
+
+<PageTitle>Onboarding</PageTitle>
+
+<MudContainer MaxWidth="stepIndex == 0 ? MaxWidth.Small : MaxWidth.Medium" Class="my-16 pt-16">
+   
+
+    @if (stepIndex == 0)
+    {
+        <RegistrationStep />
+    }
+    else if (stepIndex == 1)
+    {
+        <ProductSelectionStep />
+    }
+
+    <div class="d-flex justify-space-between w-100 mt-8">
+        <MudButton OnClick="() => MoveStep(-1)">Back</MudButton>
+        <MudButton Color="Color.Primary" OnClick="() => MoveStep(1)">Next</MudButton>
+    </div>
+</MudContainer>
+
+
+@code {
+    private int stepIndex = 0;
+    //public 
+
+    private void MoveStep(int modifier) => stepIndex += modifier;
+}
+ 

@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@inherits LayoutComponentBase
+
+<MudThemeProvider @ref="themeProvider" @bind-IsDarkMode="IsDarkMode" Theme="@theme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudMainContent>
+        <CascadingValue Value="IsDarkMode">
+            @Body
+        </CascadingValue>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    public bool IsDarkMode { get; set; }
+    private MudThemeProvider themeProvider = new();
+    private MudTheme theme = new MudTheme()
+    {
+        Typography = new Typography()
+        {
+            Default = new Default()
+            {
+                FontFamily = new[] { "Nunito", "Helvetica" }
+            }
+        },
+        Palette = new PaletteLight()
+        {
+            Primary = Settings.PrimaryColor
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = Settings.PrimaryColor
+        }
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            IsDarkMode = await themeProvider.GetSystemPreference();
+            StateHasChanged();
+        }
+    }
+}

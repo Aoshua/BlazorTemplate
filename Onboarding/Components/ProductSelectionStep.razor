@@ -1,0 +1,40 @@
+﻿@using Models.Products
+@inject Core.Modules.Projects.ProductManager ProductManager
+
+@foreach(var product in products)
+{
+    <MudText Typo="Typo.h4">Product: @product.Title</MudText>
+    <MudText Typo="Typo.h6">Please Select Tier</MudText>
+
+    <MudStack Row="true" Spacing="3" Justify="Justify.Center" Class="mt-3">
+        @foreach (var tier in product.Tiers)
+        {
+            <MudCard Class="pa-3" Style="width: 30%;">
+                <MudCardContent Class="d-flex flex-column gap-3" Style="height: 18rem;">
+                    <MudText Typo="Typo.h5" Align="Align.Center">@tier.Title</MudText>
+                    <MudAlert Severity="Severity.Info" NoIcon="true">
+                        <MudText Typo="Typo.h5" Align="Align.Center">$1,000</MudText>
+                    </MudAlert>
+                    <ul>
+                        <li>Feature 1</li>
+                        <li>Feature 2</li>
+                        <li>Feature 3</li>
+                    </ul>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">Select</MudButton>
+                </MudCardActions>
+            </MudCard>
+        }
+    </MudStack>
+}
+
+@code {
+    private List<Product> products { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate fetching data from a database
+        products = await ProductManager.GetAllProductsAndTiers();
+    }
+}

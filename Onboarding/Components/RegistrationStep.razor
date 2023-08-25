@@ -1,0 +1,25 @@
+﻿<div class="d-flex justify-center mb-8">
+    <MudImage Src="@(IsDarkMode ? "xs-logo-dark-full.svg" : "xs-logo-default-full.svg")" ObjectPosition="ObjectPosition.Center" />
+    @* <MudImage Src="xs-logo-dark-full.svg" ObjectPosition="ObjectPosition.Center" /> *@
+</div>
+
+<MudText Typo="Typo.h5" Align="Align.Center" GutterBottom="true">Create your account</MudText>
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudForm>
+            <div class="d-flex flex-column gap-4">
+                <MudTextField @bind-Value="TextValue" Label="Your name" Variant="Variant.Outlined" />
+                <MudTextField @bind-Value="TextValue" Label="Your company" Variant="Variant.Outlined" />
+                <MudTextField @bind-Value="TextValue" Label="Email" Variant="Variant.Outlined" />
+                <MudTextField @bind-Value="TextValue" Label="Password" Variant="Variant.Outlined" />
+            </div>
+        </MudForm>
+    </MudItem>
+</MudGrid>
+
+@code {
+    [CascadingParameter]
+    protected bool IsDarkMode { get; set; }
+    private string TextValue { get; set; }
+}
